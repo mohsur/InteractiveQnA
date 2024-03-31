@@ -1,0 +1,29 @@
+.sidebar {
+    position: fixed;
+    top: 70px;
+    left: -250px; /* Initially hide the sidebar off-screen */
+    width: 185px;
+    height: calc(100% - 70px); 
+    background-color: #ffffff;
+    color: black;
+    transition: left 0.3s ease; /* Smooth transition when opening/closing */
+    z-index: 1000; /* Ensure sidebar appears above other content */
+    overflow-x: hidden;
+}
+
+.sidebar.open {
+    left: 0; /* Slide in the sidebar when open */
+}
+
+.menu {
+    padding: 20px; /* Add padding inside the sidebar */
+}
+
+.menu-item {
+    padding: 10px 0; /* Add padding between menu items */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.menu-item:hover {
+    background-color: #60b0ff; /* Darken background color on hover */
+}
