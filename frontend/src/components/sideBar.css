@@ -1,29 +1,32 @@
 .sidebar {
     position: fixed;
     top: 70px;
-    left: -250px; /* Initially hide the sidebar off-screen */
+    left: -250px;
     width: 185px;
     height: calc(100% - 70px); 
     background-color: #ffffff;
     color: black;
-    transition: left 0.3s ease; /* Smooth transition when opening/closing */
-    z-index: 1000; /* Ensure sidebar appears above other content */
+    transition: left 0.3s ease; 
+    z-index: 1000; 
     overflow-x: hidden;
 }
 
 .sidebar.open {
-    left: 0; /* Slide in the sidebar when open */
+    left: 0; 
 }
 
 .menu {
-    padding: 20px; /* Add padding inside the sidebar */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    padding: 10px;
 }
 
 .menu-item {
-    padding: 10px 0; /* Add padding between menu items */
-    cursor: pointer; /* Change cursor to pointer on hover */
+    padding: 10px 0; 
+    cursor: pointer;
 }
 
 .menu-item:hover {
-    background-color: #60b0ff; /* Darken background color on hover */
+    background-color: #60b0ff; 
 }

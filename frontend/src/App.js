@@ -3,17 +3,27 @@ import './App.css';
 import Header from './components/header';
 import Sidebar from './components/sideBar';
 import React, { useState } from 'react';
-
+import HistoryBar from './components/historyBar';
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const [marcoClicked, setMarcoClicked] = useState(false);
   const toggleSideBar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+  const handleMarcoClick = () => {
+    setMarcoClicked(true);
   };
   return (
     <div className="App">
      <Header toggleSideBar={toggleSideBar}/>
-     <Sidebar open={sidebarOpen}/>
+     <div className="container">
+        <div className="container">
+        <Sidebar open={sidebarOpen} handleMarcoClick={handleMarcoClick} />
+        <div className={`content ${sidebarOpen ? 'shifted' : ''}`}>
+          {marcoClicked && <HistoryBar />}
+        </div>
+        </div>
+     </div>
     </div>
   );
 }

@@ -1,6 +1,18 @@
 .App {
   text-align: center;
 }
+.container {
+  display: flex;
+  height: 100%;
+}
+.content {
+  flex-grow: 1;
+  transition: margin-left 0.3s ease; 
+}
+
+.shifted {
+  margin-left: 185px; 
+}
 
 .App-logo {
   height: 40vmin;
