@@ -27,15 +27,15 @@ export default function HistoryBar() {
     return (
         <div className="history-bar">
             <div className="container">
-            <div className="history-heading">History</div>
-            <button className="new-chat-button">New Chat</button>
+                <div className="history-heading">History</div>
+                <button className="new-chat-button">New Chat</button>
             </div>
-            
             <div className="question-answer-group">
+                <div>Date</div>
                 {dummyData.map((data, index) => (
                     <div key={index} className="question-answer">
-                        <div className="question">{data.question}</div>
-                        <div className="answer">{data.answer}</div>
+                        <div className="history-question">{data.question}</div>
+                        <div className="history-answer">{data.answer}</div>
                     </div>
                 ))}
             </div>

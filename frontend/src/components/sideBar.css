@@ -1,6 +1,6 @@
 .sidebar {
     position: fixed;
-    top: 70px;
+    top: 65px;
     left: -250px;
     width: 185px;
     height: calc(100% - 70px); 
@@ -9,6 +9,7 @@
     transition: left 0.3s ease; 
     z-index: 1000; 
     overflow-x: hidden;
+    border: 0.5px solid #ccc;
 }
 
 .sidebar.open {
@@ -29,4 +30,8 @@
 
 .menu-item:hover {
     background-color: #60b0ff; 
+}
+.menu-item.marco-clicked {
+    background-color:#60b0ff; 
+    color: white; 
 }

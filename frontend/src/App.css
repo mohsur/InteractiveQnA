@@ -4,13 +4,14 @@
 .container {
   display: flex;
   height: 100%;
+  width:100%;
 }
 .content {
   flex-grow: 1;
   transition: margin-left 0.3s ease; 
 }
 
-.shifted {
+.content.shifted {
   margin-left: 185px; 
 }
 
@@ -24,6 +25,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 
 .App-header {
   background-color: #282c34;
