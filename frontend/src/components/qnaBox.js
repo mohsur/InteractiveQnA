@@ -2,7 +2,7 @@ import React ,{useState,useEffect} from 'react';
 import "./qnaBox.css";
 import MySelect from './select';
 import axios from 'axios';
-
+import { jsPDF } from 'jspdf';
 
 
 export default function QnABox() {
@@ -19,8 +19,16 @@ export default function QnABox() {
             });
     }, []); 
 
-    const handleCopy = (text) => {
-        
+    const handleCopy = (response) => {
+        navigator.clipboard.writeText(response)
+            .then(() => {
+                console.log('Response copied to clipboard:', response);
+               
+            })
+            .catch((error) => {
+                console.error('Error copying response to clipboard:', error);
+                
+            });
     };
 
     const handleThumbsUp = (response) => {
@@ -36,7 +44,14 @@ export default function QnABox() {
     };
 
     const handleExportClick = () => {
-        
+        const doc = new jsPDF();
+        let y = 10;
+        dummyData.forEach(({ question, answer }) => {
+            doc.text(question, 10, y);
+            doc.text(answer, 10, y + 10);
+            y += 20;
+        });
+        doc.save('dummyData.pdf');
     };
 
     
@@ -61,9 +76,9 @@ export default function QnABox() {
                     
                 </div>
                 <div className="feedback">
-                            <button onClick={() => handleThumbsUp(data.response)} title="You like the response" >&#128077;</button>
-                            <button onClick={() => handleThumbsDown(data.response)}title="You donot like the response">&#128078;</button>
-                            <button onClick={() => handleCopy(data.response)} title="Copy to clipboard">&#128203;</button>
+                            <button onClick={() => handleThumbsUp(data.answer)} title="You like the response" >&#128077;</button>
+                            <button onClick={() => handleThumbsDown(data.answer)}title="You donot like the response">&#128078;</button>
+                            <button onClick={() => handleCopy(data.answer)} title="Copy to clipboard">&#128203;</button>
                 </div>
             </div>
             ))}
