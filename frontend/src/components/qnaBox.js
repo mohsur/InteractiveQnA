@@ -1,6 +1,6 @@
-import React from 'react';
-import Select from 'react-select';
+import React ,{useState} from 'react';
 import "./qnaBox.css";
+import MySelect from './select';
 
 
 
@@ -25,6 +25,7 @@ export default function QnABox() {
     const handleExportClick = () => {
         
     };
+
     
     const dummyData = [
         { question: "Q: What is the capital of France?", response: "A: The capital of France is Paris." },
@@ -32,7 +33,6 @@ export default function QnABox() {
         { question: "Q: What is the largest mammal on Earth?", response: "A: The largest mammal on Earth is the blue whale." }
     ];
     const options = [
-        { value: 'sage', label: 'Sage' },
         { value: 'seo', label: 'SEO' },
         { value: 'webanalytics', label: 'Web Analytics' },
     ];
@@ -60,11 +60,10 @@ export default function QnABox() {
             </div>
             ))}
             <div className="box-footer">
-                <Select options={options} />
-                <div>
-                <input type="text" placeholder="Ask MARCO" />
-                <button >Ask</button>
-                </div>
+                <div className="box-select"><MySelect options={options} /></div>
+                <div><input type="text" placeholder="Ask MARCO" className="box-input" /> </div>
+                <div><button className="ask-button">Ask</button></div>
+                
             </div>
         </div>
     );

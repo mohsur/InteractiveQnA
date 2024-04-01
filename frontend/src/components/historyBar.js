@@ -2,6 +2,9 @@ import React from 'react';
 import './historyBar.css';
 
 export default function HistoryBar() {
+    const handleChatClick=()=>{
+     
+    }
     
     const dummyData = [
         { question: "Question 1", answer: "Answer 1" },
@@ -28,7 +31,7 @@ export default function HistoryBar() {
         <div className="history-bar">
             <div className="container">
                 <div className="history-heading">History</div>
-                <button className="new-chat-button">New Chat</button>
+                <button className="new-chat-button" onClick={handleChatClick}>New Chat</button>
             </div>
             <div className="question-answer-group">
                 <div>Date</div>

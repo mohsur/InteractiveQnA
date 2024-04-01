@@ -52,10 +52,24 @@
 }
 .box-footer {
     display: flex;
-    align-items:stretch;
+    align-items:center;
     position:static;
     width: 100%; 
     position: fixed; 
     bottom: 0;
+    gap:10px;
+    margin-bottom: 10px;
 }
-
+.box-input{
+    width: 800px ;
+    height:35px;
+    border:0.5px solid #ccc;
+}
+.ask-button{
+ width:80px;
+ height:30px;
+ background-color: #ffffff;
+ color: #3e9cfa;
+ border:0.5px solid  #3e9cfa;
+ border-radius: 8px;
+}
