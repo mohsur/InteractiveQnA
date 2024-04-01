@@ -1,10 +1,23 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import "./qnaBox.css";
 import MySelect from './select';
+import axios from 'axios';
 
 
 
 export default function QnABox() {
+    const [dummyData, setDummyData] = useState([]); // State to store dummy data
+
+    useEffect(() => {
+        
+        axios.get('http://localhost:4000/dummy-data') // Replace with your backend URL
+            .then(response => {
+                setDummyData(response.data); // Set the fetched data to state
+            })
+            .catch(error => {
+                console.error('Error fetching dummy data:', error);
+            });
+    }, []); 
 
     const handleCopy = (text) => {
         
@@ -27,11 +40,6 @@ export default function QnABox() {
     };
 
     
-    const dummyData = [
-        { question: "Q: What is the capital of France?", response: "A: The capital of France is Paris." },
-        { question: "Q: Who is the president of the United States?", response: "A: The president of the United States is Joe Biden." },
-        { question: "Q: What is the largest mammal on Earth?", response: "A: The largest mammal on Earth is the blue whale." }
-    ];
     const options = [
         { value: 'seo', label: 'SEO' },
         { value: 'webanalytics', label: 'Web Analytics' },
@@ -49,7 +57,7 @@ export default function QnABox() {
                     <div className="question">{data.question}</div>
                 </div>
                 <div className="response-container">
-                    <div className="response">{data.response}</div>
+                    <div className="response">{data.answer}</div>
                     
                 </div>
                 <div className="feedback">

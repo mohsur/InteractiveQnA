@@ -1,5 +1,6 @@
 .qna-box {
     border-top: 0.5px solid #ccc;
+    border-left: 0.5px solid #ccc;
     padding: 16px;
     margin-bottom: 20px;
     width:100%; 
@@ -49,16 +50,16 @@
     background-color: #ffffff;
     border:0.5px solid #ffffff;
     color: #2f96fd;
+    cursor: pointer;
 }
 .box-footer {
     display: flex;
     align-items:center;
-    position:static;
     width: 100%; 
     position: fixed; 
     bottom: 0;
     gap:10px;
-    margin-bottom: 10px;
+    background-color: #ffffff;
 }
 .box-input{
     width: 800px ;
@@ -72,4 +73,5 @@
  color: #3e9cfa;
  border:0.5px solid  #3e9cfa;
  border-radius: 8px;
+ cursor: pointer;
 }

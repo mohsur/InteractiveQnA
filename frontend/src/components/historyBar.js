@@ -1,32 +1,25 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import './historyBar.css';
+import axios from 'axios';
 
 export default function HistoryBar() {
+    const [dummyData, setDummyData] = useState([]); 
+
+    useEffect(() => {
+        
+        axios.get('http://localhost:4000/dummy-data') 
+            .then(response => {
+                setDummyData(response.data); 
+            })
+            .catch(error => {
+                console.error('Error fetching dummy data:', error);
+            });
+    }, []); 
     const handleChatClick=()=>{
      
     }
     
-    const dummyData = [
-        { question: "Question 1", answer: "Answer 1" },
-        { question: "Question 2", answer: "Answer 2" },
-        { question: "Question 3", answer: "Answer 3" },
-        { question: "Question 1", answer: "Answer 1" },
-        { question: "Question 2", answer: "Answer 2" },
-        { question: "Question 3", answer: "Answer 3" },
-        { question: "Question 1", answer: "Answer 1" },
-        { question: "Question 2", answer: "Answer 2" },
-        { question: "Question 3", answer: "Answer 3" },
-        { question: "Question 1", answer: "Answer 1" },
-        { question: "Question 2", answer: "Answer 2" },
-        { question: "Question 3", answer: "Answer 3" },
-        { question: "Question 1", answer: "Answer 1" },
-        { question: "Question 2", answer: "Answer 2" },
-        { question: "Question 3", answer: "Answer 3" },
-        { question: "Question 1", answer: "Answer 1" },
-        { question: "Question 2", answer: "Answer 2" },
-        { question: "Question 3", answer: "Answer 3" },
-    ];
-
+   
     return (
         <div className="history-bar">
             <div className="container">
