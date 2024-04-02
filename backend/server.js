@@ -14,15 +14,6 @@ app.use(express.json());
 connectDB();
 
 
-app.get('/dummy-data', async(req, res) => {
-    try {
-        const data = await QnA.find({}); 
-        res.json(data); 
-    } catch (error) {
-        console.error('Error fetching QnA data:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
 app.post('/get-answer', async (req, res) => {
     try {
         const { question } = req.body; 
@@ -34,6 +25,38 @@ app.post('/get-answer', async (req, res) => {
         res.json({ answer: qna.answer }); 
     } catch (error) {
         console.error('Error fetching answer:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+app.post('/thumbs-up', async (req, res) => {
+    try {
+        const { answer } = req.body;
+        const qna = await QnA.findOne({ answer });
+        if (!qna) {
+            res.status(404).json({ message: 'Answer not found' });
+            return;
+        }
+        qna.feedback += 1; 
+        await qna.save();
+        res.json({ message: 'Thumbs-up feedback received' });
+    } catch (error) {
+        console.error('Error handling thumbs-up feedback:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+app.post('/thumbs-down', async (req, res) => {
+    try {
+        const { answer } = req.body;
+        const qna = await QnA.findOne({ answer });
+        if (!qna) {
+            res.status(404).json({ message: 'Answer not found' });
+            return;
+        }
+        qna.feedback -= 1; 
+        await qna.save();
+        res.json({ message: 'Thumbs-down feedback received' });
+    } catch (error) {
+        console.error('Error handling thumbs-down feedback:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });

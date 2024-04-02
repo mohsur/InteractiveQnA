@@ -33,7 +33,7 @@ function App() {
         <div className={`content ${sidebarOpen ? 'shifted' : ''}`}>
           {marcoClicked && <HistoryBar history={history} onNewChat={handleNewChat} />}
         </div>
-        {marcoClicked && <QnABox onSearch={addToHistory} newChatTrigger={newChatTrigger}/>} 
+        {marcoClicked && <QnABox history={history}onSearch={addToHistory} newChatTrigger={newChatTrigger}/>} 
         </div>
      </div>
     </div>

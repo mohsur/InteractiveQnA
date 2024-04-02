@@ -5,11 +5,10 @@ import axios from 'axios';
 import { jsPDF } from 'jspdf';
 
 
-export default function QnABox({ onSearch ,newChatTrigger}) {
+export default function QnABox({history, onSearch ,newChatTrigger}) {
     
     const [userInput, setUserInput] = useState('');
     const [fetchedAnswers, setFetchedAnswers] = useState([]);
-    
 
     const handleCopy = (response) => {
         navigator.clipboard.writeText(response)
@@ -23,12 +22,24 @@ export default function QnABox({ onSearch ,newChatTrigger}) {
             });
     };
 
-    const handleThumbsUp = (response) => {
-      
+    const handleThumbsUp = (answer) => {
+        axios.post('http://localhost:4000/thumbs-up', { answer })
+        .then(response => {
+            console.log('Thumbs-up feedback received');
+        })
+        .catch(error => {
+            console.error('Error handling thumbs-up feedback:', error);
+        });
     };
 
-    const handleThumbsDown = (response) => {
-        
+    const handleThumbsDown = (answer) => {
+        axios.post('http://localhost:4000/thumbs-down', { answer })
+            .then(response => {
+                console.log('Thumbs-down feedback received');
+            })
+            .catch(error => {
+                console.error('Error handling thumbs-down feedback:', error);
+            });
     };
 
     const handleShareClick = () => {
@@ -36,14 +47,14 @@ export default function QnABox({ onSearch ,newChatTrigger}) {
     };
 
     const handleExportClick = () => {
-        // const doc = new jsPDF();
-        // let y = 10;
-        // dummyData.forEach(({ question, answer }) => {
-        //     doc.text(question, 10, y);
-        //     doc.text(answer, 10, y + 10);
-        //     y += 20;
-        // });
-        // doc.save('history.pdf');
+        const doc = new jsPDF();
+        let y = 10;
+        history.forEach(({ question, answer }) => {
+            doc.text(question, 10, y);
+            doc.text(answer, 10, y + 10);
+            y += 20;
+        });
+        doc.save('history.pdf');
     };
     const handleInputChange = (e) => {
         setUserInput(e.target.value);
@@ -53,12 +64,14 @@ export default function QnABox({ onSearch ,newChatTrigger}) {
         .then(response => {
             setFetchedAnswers(prevAnswers => [...prevAnswers, { question: userInput, answer: response.data.answer }]);
             onSearch({ question: userInput, answer: response.data.answer });
+            setUserInput('');
         })
         .catch(error => {
             console.error('Error fetching answer:', error);
         });
-    };
 
+    };
+    
     
     const options = [
         { value: 'seo', label: 'SEO' },
