@@ -8,12 +8,22 @@ import QnABox from "./components/qnaBox";
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [marcoClicked, setMarcoClicked] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [newChatTrigger, setNewChatTrigger] = useState(false);
+
+  const addToHistory = (data) => {
+        setHistory(prevHistory => [...prevHistory, data]);
+  };
   const toggleSideBar = () => {
     setSidebarOpen(!sidebarOpen);
   };
   const handleMarcoClick = () => {
     setMarcoClicked(true);
   };
+  const handleNewChat = () => {
+    setNewChatTrigger(prev => !prev); 
+  };
+
   return (
     <div className="App">
      <Header toggleSideBar={toggleSideBar}/>
@@ -21,9 +31,9 @@ function App() {
         <div className="container">
         <Sidebar open={sidebarOpen} handleMarcoClick={handleMarcoClick} />
         <div className={`content ${sidebarOpen ? 'shifted' : ''}`}>
-          {marcoClicked && <HistoryBar />}
+          {marcoClicked && <HistoryBar history={history} onNewChat={handleNewChat} />}
         </div>
-        {marcoClicked && <QnABox />} 
+        {marcoClicked && <QnABox onSearch={addToHistory} newChatTrigger={newChatTrigger}/>} 
         </div>
      </div>
     </div>

@@ -2,22 +2,11 @@ import React,{useState,useEffect} from 'react';
 import './historyBar.css';
 import axios from 'axios';
 
-export default function HistoryBar() {
-    const [dummyData, setDummyData] = useState([]); 
+export default function HistoryBar({ history , onNewChat}) {
+    const handleChatClick = () => {
+        onNewChat();
+    };
 
-    useEffect(() => {
-        
-        axios.get('http://localhost:4000/dummy-data') 
-            .then(response => {
-                setDummyData(response.data); 
-            })
-            .catch(error => {
-                console.error('Error fetching dummy data:', error);
-            });
-    }, []); 
-    const handleChatClick=()=>{
-     
-    }
     
    
     return (
@@ -28,7 +17,7 @@ export default function HistoryBar() {
             </div>
             <div className="question-answer-group">
                 <div>Date</div>
-                {dummyData.map((data, index) => (
+                {history.map((data, index) => (
                     <div key={index} className="question-answer">
                         <div className="history-question">{data.question}</div>
                         <div className="history-answer">{data.answer}</div>

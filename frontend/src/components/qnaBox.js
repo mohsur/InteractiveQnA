@@ -5,19 +5,11 @@ import axios from 'axios';
 import { jsPDF } from 'jspdf';
 
 
-export default function QnABox() {
-    const [dummyData, setDummyData] = useState([]); // State to store dummy data
-
-    useEffect(() => {
-        
-        axios.get('http://localhost:4000/dummy-data') // Replace with your backend URL
-            .then(response => {
-                setDummyData(response.data); // Set the fetched data to state
-            })
-            .catch(error => {
-                console.error('Error fetching dummy data:', error);
-            });
-    }, []); 
+export default function QnABox({ onSearch ,newChatTrigger}) {
+    
+    const [userInput, setUserInput] = useState('');
+    const [fetchedAnswers, setFetchedAnswers] = useState([]);
+    
 
     const handleCopy = (response) => {
         navigator.clipboard.writeText(response)
@@ -44,14 +36,27 @@ export default function QnABox() {
     };
 
     const handleExportClick = () => {
-        const doc = new jsPDF();
-        let y = 10;
-        dummyData.forEach(({ question, answer }) => {
-            doc.text(question, 10, y);
-            doc.text(answer, 10, y + 10);
-            y += 20;
+        // const doc = new jsPDF();
+        // let y = 10;
+        // dummyData.forEach(({ question, answer }) => {
+        //     doc.text(question, 10, y);
+        //     doc.text(answer, 10, y + 10);
+        //     y += 20;
+        // });
+        // doc.save('history.pdf');
+    };
+    const handleInputChange = (e) => {
+        setUserInput(e.target.value);
+    };
+    const handleAskClick = () => {
+        axios.post('http://localhost:4000/get-answer', { question: userInput })
+        .then(response => {
+            setFetchedAnswers(prevAnswers => [...prevAnswers, { question: userInput, answer: response.data.answer }]);
+            onSearch({ question: userInput, answer: response.data.answer });
+        })
+        .catch(error => {
+            console.error('Error fetching answer:', error);
         });
-        doc.save('dummyData.pdf');
     };
 
     
@@ -59,14 +64,18 @@ export default function QnABox() {
         { value: 'seo', label: 'SEO' },
         { value: 'webanalytics', label: 'Web Analytics' },
     ];
-
+    useEffect(() => {
+        if (newChatTrigger) {
+          setFetchedAnswers([]);
+        }
+      }, [newChatTrigger]);
     return (
         <div className="qna-box">
             <div className="box-header">
             <button className='box-header-item' onClick={handleShareClick}>Share</button>
             <button className='box-header-item' onClick={handleExportClick}>Export</button>
             </div>
-            {dummyData.map((data, index) => (
+            {fetchedAnswers.map((data, index) => (
             <div key={index}>
                 <div className="question-container">
                     <div className="question">{data.question}</div>
@@ -84,8 +93,8 @@ export default function QnABox() {
             ))}
             <div className="box-footer">
                 <div className="box-select"><MySelect options={options} /></div>
-                <div><input type="text" placeholder="Ask MARCO" className="box-input" /> </div>
-                <div><button className="ask-button">Ask</button></div>
+                <div><input type="text" placeholder="Ask MARCO" className="box-input" value={userInput} onChange={handleInputChange} /> </div>
+                <div><button className="ask-button"  onClick={handleAskClick}>Ask</button></div>
                 
             </div>
         </div>
