@@ -1,14 +1,11 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import './historyBar.css';
-import axios from 'axios';
 
 export default function HistoryBar({ history , onNewChat}) {
     const handleChatClick = () => {
         onNewChat();
     };
 
-    
-   
     return (
         <div className="history-bar">
             <div className="container">

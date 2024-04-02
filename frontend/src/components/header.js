@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import flableai_icon from "../utilities/flableai_icon.png"
 import account_icon from "../utilities/account_icon.png"
-import sideBar from "./sideBar"
 import "./header.css"
 
 export default function Header({toggleSideBar}){

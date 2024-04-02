@@ -1,10 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/header';
 import Sidebar from './components/sideBar';
 import React, { useState } from 'react';
 import HistoryBar from './components/historyBar';
 import QnABox from "./components/qnaBox";
+
+const options = [
+  { value: 'seo', label: 'SEO' },
+  { value: 'webanalytics', label: 'Web Analytics' },
+];
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [marcoClicked, setMarcoClicked] = useState(false);
@@ -12,7 +17,7 @@ function App() {
   const [newChatTrigger, setNewChatTrigger] = useState(false);
 
   const addToHistory = (data) => {
-        setHistory(prevHistory => [...prevHistory, data]);
+    setHistory(prevHistory => [...prevHistory, data]);
   };
   const toggleSideBar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -33,7 +38,7 @@ function App() {
         <div className={`content ${sidebarOpen ? 'shifted' : ''}`}>
           {marcoClicked && <HistoryBar history={history} onNewChat={handleNewChat} />}
         </div>
-        {marcoClicked && <QnABox history={history}onSearch={addToHistory} newChatTrigger={newChatTrigger}/>} 
+        {marcoClicked && <QnABox history={history} onSearch={addToHistory} newChatTrigger={newChatTrigger} options={options}/>} 
         </div>
      </div>
     </div>
