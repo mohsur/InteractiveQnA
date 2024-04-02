@@ -42,7 +42,7 @@ export default function QnABox({history, onSearch ,newChatTrigger,options}) {
     };
     
     const handleThumbsUp = (answer) => {
-        axios.post('http://localhost:4000/thumbs-up', { answer })
+        axios.post('https://interactiveqna.onrender.com/thumbs-up', { answer })
         .then(response => {
             console.log('Thumbs-up feedback received');
         })
@@ -52,7 +52,7 @@ export default function QnABox({history, onSearch ,newChatTrigger,options}) {
     };
 
     const handleThumbsDown = (answer) => {
-        axios.post('http://localhost:4000/thumbs-down', { answer })
+        axios.post('https://interactiveqna.onrender.com/thumbs-down', { answer })
             .then(response => {
                 console.log('Thumbs-down feedback received');
             })
@@ -62,7 +62,7 @@ export default function QnABox({history, onSearch ,newChatTrigger,options}) {
     };
 
     const handleAskClick = () => {
-        axios.post('http://localhost:4000/get-answer', { question: userInput })
+        axios.post('https://interactiveqna.onrender.com/get-answer', { question: userInput })
         .then(response => {
             setFetchedAnswers(prevAnswers => [...prevAnswers, { question: userInput, answer: response.data.answer }]);
             onSearch({ question: userInput, answer: response.data.answer });
